@@ -1,0 +1,36 @@
+.App {
+    font-family: sans-serif;
+    text-align: center;
+}
+
+.inputWrapper{
+    position:fixed;
+    top:0;
+    width: 100%;
+    background-color:gray;
+}
+
+.inputBox {
+    /* position:fixed;
+    top:0; */
+    display: block;
+    margin: 10px auto;
+    border:1px solid black;
+}
+
+.blockWrapper{
+    margin-top: 45px;
+}
+
+.block{
+    border: 1px solid black;
+    width: 100px;
+    height: 100px;
+    line-height: 100px;
+    margin: 40px auto;
+    
+}
+
+.invalid{
+    border: 1px solid red;
+}

@@ -1,28 +1,60 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
+import { connect } from 'react-redux';
+import { getList,removeFromFirstList, removeFromSecondList } from './actions/action';
 import './App.css';
+import { bindActionCreators } from 'redux';
 
-class App extends Component {
+class Counter extends Component {
+
+  componentDidMount() {
+    this.props.getList();
+  }
   render() {
     return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
+      <div className="list">
+      <ul className="firstList">
+      {console.log("this.props,-----------------", this.props)}
+        {
+          this.props.firstList.map((ele,ind)=> {
+            return <li key={`first${ind}`} onClick={() => this.props.removeFromFirstList(ind)}>{ele}</li>}
+          )
+        }
+      </ul>
+      <ul className="secondList">
+        {
+          this.props.secondList.map((ele,index)=> 
+            <li key={`second${index}`} onClick={() => this.props.removeFromSecondList(index)}>{ele}</li>
+          )
+        }
+      </ul>
+
+
       </div>
+
     );
   }
 }
 
-export default App;
+function mapStateToProps(state) {
+  return {
+    firstList: state.firstList,
+    secondList: state.secondList
+  }
+}
+
+function mapDispatchToProps(dispatch) {
+  return bindActionCreators({ getList,removeFromFirstList, removeFromSecondList }, dispatch);
+  // {
+  //   getAll: ()=> {
+  //     dispatch(getList())
+  //   },
+  //   removeFromFirstList: (id)=> {
+  //     dispatch(removeFromFirstList(id))
+  //   },
+  //   removeFromSecondList: (id)=> {
+  //     dispatch(removeFromSecondList(id))
+  //   }
+  // }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Counter);
